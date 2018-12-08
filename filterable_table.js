@@ -33,20 +33,37 @@ class SeachBar extends React.Component {
 
 class ProductTable extends React.Component {
     render() {
-        const listProducts = this.props.products.map( (product) => 
-            <ProductRow product={product} key={product.name}/>
-        )
-        return (
-            <tbody>
-                {listProducts}
-            </tbody>
-        )
-    }
-}
+        const rows = []
 
-class ProductCategoryRow extends React.Component {
-    render() {
-        return <h1>ProductCategoryRow</h1>
+        const products = this.props.products
+        
+        const categories = Array.from(new Set(products.map(product => product.category)))
+        
+        const productsForCategory = (category) => {
+            return products.filter(product => product.category == category)
+        }
+
+        categories.forEach(category => {
+            rows.push(<ProductCategoryRow category={category} key={category}/>)
+
+            productsForCategory(category).forEach(product => {
+                rows.push(<ProductRow product={product} key={product.name}/>)
+            });
+        });
+
+        return (
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody> 
+                    {rows}
+                </tbody>
+            </table>
+        )
     }
 }
 
@@ -56,12 +73,24 @@ class ProductRow extends React.Component {
             <tr>
                 <td>{this.props.product.name}</td>
                 <td>{this.props.product.price}</td>
+            </tr> 
+        )
+    }
+}
+
+class ProductCategoryRow extends React.Component {
+    render() {
+        return (
+            <tr>
+                <th colSpan="2">{this.props.category}</th>
             </tr>
         )
     }
 }
+
+
 const product = {category: "Sporting Goods", price: "$49.99", stocked: true, name: "Football"}
-const element = <table><ProductTable products={getData()} /></table>
+const element = <ProductTable products={getData()} />
 ReactDOM.render(
   element,
   document.getElementById('filterable_table_container')
