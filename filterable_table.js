@@ -11,11 +11,17 @@ function getData() {
 
 class FilterableProductTable extends React.Component {
     render() {
-        return <h1>FilterableProductTable</h1>
+        return (
+            <div>
+                <SearchBar />
+                <ProductTable products={getData()} />
+            </div>
+        )
+
     }
 }
 
-class SeachBar extends React.Component {
+class SearchBar extends React.Component {
     render() {
         return (
             <form>
@@ -84,7 +90,7 @@ class ProductCategoryRow extends React.Component {
     }
 }
 
-const element = <ProductTable products={getData()} />
+const element = <FilterableProductTable />
 ReactDOM.render(
   element,
   document.getElementById('filterable_table_container')
