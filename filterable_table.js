@@ -10,11 +10,17 @@ function getData() {
 }
 
 class FilterableProductTable extends React.Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {filterText:'Nhenhe', inStockOnly:false}
+    }
+
     render() {
         return (
             <div>
-                <SearchBar />
-                <ProductTable products={getData()} />
+                <SearchBar filterText={this.state.filterText} inStockOnly={this.state.inStockOnly} />
+                <ProductTable products={getData()} filterText={this.state.filterText} inStockOnly={this.state.inStockOnly} />
             </div>
         )
 
@@ -23,10 +29,18 @@ class FilterableProductTable extends React.Component {
 
 class SearchBar extends React.Component {
     render() {
+        const handlerFilterChange = () => {
+            
+        }
+
+        const handlerInStockChange = () => {
+            
+        }
+
         return (
             <form>
-                <input type="text" /> <br/>
-                <input name="inStock" type="checkbox" />
+                <input name="filterText" type="text" value={this.props.filterText} onChange={handlerFilterChange}/> <br/>
+                <input name="inStockOnly" type="checkbox" checked={this.props.inStockOnly} onChange={handlerInStockChange}/>
                 Only show products in stock
             </form>
         )
