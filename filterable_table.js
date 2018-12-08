@@ -9,10 +9,6 @@ function getData() {
       ]
 }
 
-function HelloWorld(props) {
-    return <h1>Hello World!</h1>
-}
-
 class FilterableProductTable extends React.Component {
     render() {
         return <h1>FilterableProductTable</h1>
@@ -88,8 +84,6 @@ class ProductCategoryRow extends React.Component {
     }
 }
 
-
-const product = {category: "Sporting Goods", price: "$49.99", stocked: true, name: "Football"}
 const element = <ProductTable products={getData()} />
 ReactDOM.render(
   element,
