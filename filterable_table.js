@@ -13,7 +13,7 @@ class FilterableProductTable extends React.Component {
     constructor(props) {
         super(props)
 
-        this.state = {filterText:'Nhenhe', inStockOnly:false}
+        this.state = {filterText:'o', inStockOnly:false}
     }
 
     render() {
@@ -48,11 +48,20 @@ class SearchBar extends React.Component {
 }
 
 class ProductTable extends React.Component {
+    constructor(props) {
+        super(props)
+        
+    }
     render() {
         const rows = []
 
-        const products = this.props.products
-        
+        let products = this.props.products
+        if(this.props.filterText != '') {
+            products = this.props.products.filter(product =>
+                product.name.indexOf(this.props.filterText) != -1
+            )
+        }
+
         const categories = Array.from(new Set(products.map(product => product.category)))
         
         const productsForCategory = (category) => {
